@@ -8,7 +8,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "gradio_patch_selection"
-version = "0.2.5"
+version = "0.1.0"
 description = "A Gradio component that allows users to select patches from images by overlaying a customizable grid."
 readme = "README.md"
 license = "MIT"

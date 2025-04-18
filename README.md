@@ -1,6 +1,6 @@
 
 # `gradio_patch_selection`
-<img alt="Static Badge" src="https://img.shields.io/badge/version%20-%200.2.5%20-%20orange">  
+<img alt="Static Badge" src="https://img.shields.io/badge/version%20-%200.1.0%20-%20orange">  
 
 A Gradio component that allows users to select patches from images by overlaying a customizable grid.
 
