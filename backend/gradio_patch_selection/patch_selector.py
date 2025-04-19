@@ -20,6 +20,8 @@ PIL.Image.init()  # fixes https://github.com/gradio-app/gradio/issues/2843
 class AnnotatedImageData(GradioModel):
     image: FileData
     patchIndex: int | None = None
+    imgSize: int | None = None
+    patchSize: int | None = None
 
 
 
@@ -207,7 +209,7 @@ class PatchSelector(Component):
         Parameters:
             payload: an AnnotatedImageData object.
         Returns:
-            A dict with the image and patchIndex or None.
+            A dict with the image, patchIndex, imgSize, and patchSize or None.
         """
         if payload is None:
             return None
@@ -216,7 +218,9 @@ class PatchSelector(Component):
         
         ret_value = {
             "image": self.preprocess_image(payload.image),
-            "patchIndex": payload.patchIndex
+            "patch_index": payload.patchIndex,
+            "img_size": payload.imgSize,
+            "patch_size": payload.patchSize
         }
         return ret_value
 
@@ -246,7 +250,12 @@ class PatchSelector(Component):
         else:
             raise ValueError(f"An image must be provided. Got {value}")
         
-        return AnnotatedImageData(image=image, patchIndex=value.get("patchIndex", None))
+        return AnnotatedImageData(
+            image=image, 
+            patchIndex=value.get("patch_index", None),
+            imgSize=value.get("img_size", self.img_size),
+            patchSize=value.get("patch_size", self.patch_size)
+        )
 
     def process_example(self, value: dict | None) -> FileData | None:
         if value is None:
@@ -270,5 +279,5 @@ class PatchSelector(Component):
     def example_inputs(self) -> Any:
         return {
             "image": "https://raw.githubusercontent.com/gradio-app/gradio/main/guides/assets/logo.png",
-            "patchIndex": 42  # Example patch index
+            "patch_index": 42  # Example patch index
         }

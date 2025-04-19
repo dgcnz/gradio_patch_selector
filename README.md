@@ -4,8 +4,6 @@
 
 A Gradio component that allows users to select patches from images by overlaying a customizable grid.
 
-This component is based on [gradio_image_annotator](https://github.com/edgarGracia/gradio_image_annotator) by Edgar Gracia.
-
 ## Installation
 
 ```bash
@@ -443,7 +441,7 @@ The impact on the users predict function varies depending on whether the compone
 
 The code snippet below is accurate in cases where the component is used as both an input and an output.
 
-- **As output:** Is passed, a dict with the image and patchIndex or None.
+- **As output:** Is passed, a dict with the image, patchIndex, imgSize, and patchSize or None.
 - **As input:** Should return, a dict with an image and an optional patchIndex or None.
 
  ```python

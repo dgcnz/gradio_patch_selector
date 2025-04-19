@@ -39,6 +39,7 @@
         // Calculate grid dimensions using shared variables
         const gridWidth = Math.floor(effectiveWidth / patchSize);
         const gridHeight = Math.floor(effectiveHeight / patchSize);
+        console.log(`[PatchSelector.svelte:drawGrid] patch size: ${patchSize}`);
         
         // Draw horizontal lines
         for (let i = 0; i <= gridHeight; i++) {
@@ -170,6 +171,23 @@
             patchSize * gridScaleY
         );
         ctx.restore();
+    }
+    
+    // Update imgSize and patchSize when they change in the value object
+    $: if (value?.imgSize !== undefined && value.imgSize !== null) {
+        console.log(`[PatchSelector.svelte] Changing patch size: ${imgSize} -> ${value.imgSize}`);
+        imgSize = value.imgSize;
+    }
+    
+    $: if (value?.patchSize !== undefined && value.patchSize !== null) {
+        console.log(`[PatchSelector.svelte] Changing patch size: ${patchSize} -> ${value.patchSize}`);
+        patchSize = value.patchSize;
+    }
+    
+    // Redraw when patch size or image size changes
+    $: if (image && (patchSize || imgSize)) {
+        console.log(`[PatchSelector.svelte] Redrawing canvas with new patch size: ${patchSize}`);
+        handleImageLoad();
     }
     
     $: if (src) {
